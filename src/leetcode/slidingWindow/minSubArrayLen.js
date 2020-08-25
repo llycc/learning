@@ -10,20 +10,14 @@ var minSubArrayLen = function(s, nums) {
   let i = 0, j = 0;
   let sum = 0, minLen = Infinity;
 
-  while(i < nums.length && j <= nums.length) {
-    if (sum < s) {
-      sum += nums[j];
-      j++;
-    } else {
+  while( j < nums.length) {
+    sum += nums[j];
+    while(sum >= s) {
+      minLen = Math.min(minLen, j - i + 1);
       sum -= nums[i];
       i++;
     }
-    if (sum >= s) {
-      minLen = Math.min(minLen, j - i);
-    }
-    if (minLen === 1) {
-      break;
-    }
+    j++;
   }
   return minLen > nums.length ? 0 : minLen;
 };
